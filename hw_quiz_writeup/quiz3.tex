@@ -1,0 +1,132 @@
+\documentclass[11pt, answers]{exam}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{babel}
+\usepackage{titlesec}
+\usepackage{changepage}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{commath}
+\usepackage{mathrsfs}
+\usepackage{fancybox}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[noend]{algpseudocode}
+\usepackage[margin = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{graphicx}
+\newif\ifsteps
+\stepstrue
+%\stepsfalse
+
+\renewcommand{\solutiontitle}{\noindent}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newcommand{\x}{\times}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\imp}{\implies}
+\newcommand{\ex}{\exists}
+\newcommand{\prob}{\textbf{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\comp}{\mathsf{c}}
+\newcommand{\topo}{\mathcal{T}}
+\newcommand{\vter}{\mathit{v_{\text{ter}}}}
+\newcommand{\vex}{\mathit{v_{\text{ex}}}}
+\newcommand{\lang}{\mathcal{L}}
+\newcommand{\ham}{\mathcal{H}}
+\newcommand{\ess}{\mathcal{S}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\bigavg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\bracket}[2]{\langle {#1} \mid {#2}\rangle}
+\newcommand{\ket}[1]{\left\lvert {#1}\right\rangle}
+\newcommand{\allint}{\int_{-\infty}^{+\infty}}
+\newcommand\todo[1]{\textcolor{red}{#1}}
+\newcommand{\fullwidthseed}{\par\noindent\rule{\linewidth}{0pt}\vspace*{-\topskip}}
+\newcommand{\vect}[1]{|{#1}\rangle}
+\newcommand{\schro}{Schr{\"o}dinger}
+\allowdisplaybreaks
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scriptr}{\mathcalligra{r}\,}
+\newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
+\usepackage{comment}
+\includecomment{steps}
+
+\begin{document}
+	\begin{center}
+		\Large \bf Physics 7501 Quiz 3 \\ 9/18/2026 \\ Sharon Ye
+	\end{center}
+	
+	\section*{(2.3.1) Spin Precession}
+	Under a magnetic field along the $z$-axis, described by a Hamiltonian
+	\begin{align*}
+		\hat{H} = -B\hat{Z},
+	\end{align*}
+	where
+	\begin{align*}
+		\hat{Z}
+		=
+		\begin{pmatrix}
+			1 & 0 \\
+			0 & -1
+		\end{pmatrix}
+	\end{align*}
+	is the 3rd Pauli matrix. Consider an initial state whose spin magnetic moment is along the $x$-axis. What is the spin precession periodicity for its magnetic moment? Express your answer as a function of $B$. You can set $\hbar = 1$.
+	
+	\begin{solution}
+		Recall that the magnetic dipole moment $\vec{\mu}$ is proportional to the spin angular momentum $\vec{\sigma}$ (point in the same direction). Our initial state points along the $x$-axis (without loss of generality assume $+x$-direction) thus
+		\begin{align*}
+			\ket{\psi(0)} = \ket{+x} = \frac{1}{\sqrt{2}}\left(\ket{+z}+\ket{-z}\right)
+		\end{align*}
+		$\implies$
+		\begin{align*}
+			\ket{\psi(t)} = \frac{1}{\sqrt{2}}\left(e^{iBt}\ket{+z}+e^{-iBt}\ket{-z}\right)
+		\end{align*}
+		We want to find $T$ such that $\ket{\psi(T)}=\ket{\psi(0)}$, thus
+		\begin{align*}
+			\frac{1}{\sqrt{2}}\left(e^{iBT}\ket{+z}+e^{-iBT}\ket{-z}\right) = \frac{1}{\sqrt{2}}\left(\ket{+z}+\ket{-z}\right)
+		\end{align*}
+		$\implies$
+		\begin{align*}
+			\frac{1}{\sqrt{2}}\left(\ket{+z}+e^{-2iBT}\ket{-z}\right) = \frac{1}{\sqrt{2}}\left(\ket{+z}+\ket{-z}\right)
+		\end{align*}
+		$\implies e^{-2iBT}=1 \implies 2BT = 2\pi \implies T = \frac{\pi}{B}$. Since time should be positive, we take the absolute value
+		\begin{align*}
+			T=\frac{\pi}{|B|}
+		\end{align*}
+	\end{solution}
+	
+	\section*{(2.3.2) Neutrino oscillation}
+	
+	Both neutrino oscillation and spin precession are described by 2-level Hamiltonians of the same form. Consider two ``mass eigenstates'' $|\nu_1\rangle$ and $|\nu_2\rangle$ in neutrino oscillation: do they correspond to Pauli-$\hat{Z}$ eigenstates or Pauli-$\hat{X}$ eigenstates in the spin precession problem? Explain.
+	
+	\begin{solution}
+		$\ket{\nu_1}$ and $\ket{\nu_2}$ are analogous to the Pauli-$\hat{Z}$ eigenstates since they are energy eigenstates of their associated Hamiltonian.
+	\end{solution}
+	
+	\section*{(2.3.3) 2-qubit Hamiltonian}
+	
+	Find the smallest eigenvalue of the 2-qubit Hamiltonian
+	\begin{align*}
+		\hat{H} = \hat{Z}_1 \otimes \hat{Z}_2.
+	\end{align*}
+	
+	\begin{solution}
+		For any two operators $\hat{A}$ and $\hat{B}$, if $\lambda_a$ is an eigenvalue of $\hat{A}$ and $\lambda_b$ is an eigenvalue of $\hat{B}$ i.e. $\hat{A}\ket{a}=\lambda_a\ket{a}$ and $\hat{B}\ket{b}=\lambda_b\ket{b}$, then
+		\begin{align*}
+			(\hat{A}\otimes\hat{B})(\ket{a}\otimes\ket{b})= \hat{A}\ket{a} \otimes \hat{B}\ket{b}=\lambda_a\lambda_b(\ket{a}\otimes\ket{b})
+		\end{align*}
+		$\implies \lambda_a\lambda_b$ is an eigenvalue of $\hat{A}\otimes\hat{B}$ (pairwise products of the eigenvalues of $\hat{A}$ and $\hat{B}$). Since the eigenvalues of $\hat{Z}$ are $\pm 1$, the eigenvalues of $\hat{H}$ are also $\pm 1 \implies \lambda_{\text{min}}=-1$
+	\end{solution}
+\end{document}

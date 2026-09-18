@@ -1,0 +1,21 @@
+# Reference textbooks
+textbooks/
+homework/
+misc/
+notes/
+reading_quizzes/
+/*.pdf
+/*.md
+
+# LaTeX build files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# OS/editor junk
+.DS_Store
+.vscode/
