@@ -21,6 +21,7 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usepackage{graphicx}
+\usetikzlibrary{calc}
 \newif\ifsteps
 \stepstrue
 %\stepsfalse
@@ -65,7 +66,7 @@
 
 \begin{document}
 	\begin{center}
-		\Large \bf Physics 7501 Useful Tips \\ Sharon Ye
+		\Large \bf Useful Tips \\ Sharon Ye
 	\end{center}
 
     \section{Trigonometric Identities}
@@ -207,25 +208,7 @@
     \[
     {\sin3x=3\sin x-4\sin^3x}.
     \]So all the \(n\)-angle identities come from one equation.
-
-    \section{Bloch Sphere}
-    The Bloch sphere is useful because it turns a two-level quantum state into geometry: measurement probabilities become projections, unitary evolution becomes rotation, and mixedness becomes distance from the center.
-    \subsection{Visualizing a state as a point on the sphere}
-    Choose \(|0\rangle=|\uparrow_z\rangle\) and \(|1\rangle=|\downarrow_z\rangle\). Any normalized pure qubit state, after removing an overall phase, can be written as
-    \[
-    |\psi\rangle=\cos\frac{\theta}{2}|0\rangle
-    +e^{i\phi}\sin\frac{\theta}{2}|1\rangle
-    \]Its Bloch vector is
-    \[
-    {\mathbf r=(\sin\theta\cos\phi,\;\sin\theta\sin\phi,\;\cos\theta).}
-    \]
-    which is the unit radial vector in spherical coordinates. Here \(\theta\) is the polar angle measured from \(+z\), and \(\phi\) is the azimuthal angle. \\ \\
-    \textbf{NOTE} The half-angle in the ket matters!
-    Some useful landmarks:
-    \begin{enumerate}[label=(\roman*)]
-        \item \(|0\rangle\) and \(|1\rangle\) are the north and south poles.
-        \item \((|0\rangle\pm|1\rangle)/\sqrt2\) point along \(\pm x\).
-        \item \((|0\rangle\pm i|1\rangle)/\sqrt2\) point along \(\pm y\).
-    \end{enumerate}
-    Orthogonal kets correspond to opposite points, not perpendicular Bloch vectors. Multiplying a ket by an overall phase leaves its point unchanged; changing the relative phase generally moves it.
+    
+    \section{Binomial and Taylor Expansions}
+    $\frac{num}{den}$
 \end{document}

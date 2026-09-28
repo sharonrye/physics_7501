@@ -1,6 +1,6 @@
 # Reference textbooks
 textbooks/
-homework/
+hw/
 misc/
 notes/
 reading_quizzes/
@@ -15,6 +15,7 @@ reading_quizzes/
 *.synctex.gz
 *.fls
 *.fdb_latexmk
+*.ini
 
 # OS/editor junk
 .DS_Store
