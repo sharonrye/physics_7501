@@ -106,7 +106,28 @@
 	If you cannot find any, explain.
 	
 	\begin{solution}
-		content...
+		$\sigma_x$ and $\sigma_z$ have no simultaneous eigenkets. We know from homework that non-commuting Hermitian operators cannot share a common \textit{basis} of eigenkets. In this case however, we can make the stronger statement that they share \textit{none}. Suppose they shared a non-zero eigenket $\ket{\psi}$
+		\begin{align*}
+			[X,Z]|\psi\rangle
+			&=(XZ-ZX)|\psi\rangle\\
+			&=xz|\psi\rangle-zx|\psi\rangle\\
+			&=0
+		\end{align*}
+		$\implies$
+		\begin{align*}
+			[X,Z]\ket{\psi}=\begin{pmatrix}0&-2\\2&0\end{pmatrix}
+			\begin{pmatrix}
+				a \\
+				b
+			\end{pmatrix}
+			=
+			\begin{pmatrix}
+				-2a \\
+				2b
+			\end{pmatrix}
+			\implies a = b = 0
+		\end{align*}
+		which contradicts our original presumption that $\ket{\psi}$ was non-zero.
 	\end{solution}
 	
 	\section*{(1.2.3) Measurements}

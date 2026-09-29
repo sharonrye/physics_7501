@@ -1,0 +1,152 @@
+\documentclass[11pt, answers]{exam}
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[boxed]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{babel}
+\usepackage{titlesec}
+\usepackage{changepage}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{commath}
+\usepackage{mathrsfs}
+\usepackage{fancybox}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[noend]{algpseudocode}
+\usepackage[margin = 1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{graphicx}
+\usetikzlibrary{calc}
+\newif\ifsteps
+\stepstrue
+%\stepsfalse
+
+\renewcommand{\solutiontitle}{\noindent}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newcommand{\x}{\times}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\imp}{\implies}
+\newcommand{\ex}{\exists}
+\newcommand{\prob}{\textbf{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\comp}{\mathsf{c}}
+\newcommand{\topo}{\mathcal{T}}
+\newcommand{\vter}{\mathit{v_{\text{ter}}}}
+\newcommand{\vex}{\mathit{v_{\text{ex}}}}
+\newcommand{\lang}{\mathcal{L}}
+\newcommand{\ham}{\mathcal{H}}
+\newcommand{\ess}{\mathcal{S}}
+\newcommand{\avg}[1]{\langle {#1} \rangle}
+\newcommand{\bigavg}[1]{\left\langle {#1} \right\rangle}
+\newcommand{\allint}{\int_{-\infty}^{+\infty}}
+\newcommand\todo[1]{\textcolor{red}{#1}}
+\newcommand{\fullwidthseed}{\par\noindent\rule{\linewidth}{0pt}\vspace*{-\topskip}}
+\newcommand{\vect}[1]{|{#1}\rangle}
+\newcommand{\schro}{Schr{\"o}dinger}
+\allowdisplaybreaks
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scriptr}{\mathcalligra{r}\,}
+\newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
+\usepackage{comment}
+\includecomment{steps}
+\usepackage{braket}
+
+\begin{document}
+	\begin{center}
+		\Large \bf Physics 7501 Quiz 1 \\ 9/4/2026 \\ Sharon Ye
+	\end{center}
+	
+	\section*{(1.1.3) Pauli matrices}
+	
+	Recall the Pauli matrices
+	\begin{align*}
+		\hat{X}
+		&= \begin{pmatrix}
+			0 & 1 \\
+			1 & 0
+		\end{pmatrix},
+		\qquad
+		\hat{Y}
+		= \begin{pmatrix}
+			0 & -i \\
+			i & 0
+		\end{pmatrix},
+		\qquad
+		\hat{Z}
+		= \begin{pmatrix}
+			1 & 0 \\
+			0 & -1
+		\end{pmatrix}.
+		\tag{1.1}
+	\end{align*}
+	Express the following matrix $\hat{M}$ as a linear superposition of
+	identity matrix $\hat{1}_{2\times 2}$ and Pauli matrices:
+	\begin{align*}
+		\hat{M}
+		&= \begin{pmatrix}
+			3 & 6 \\
+			4 & 5
+		\end{pmatrix}
+		= m_0\hat{1}_{2\times 2}
+		+ m_1\hat{X}
+		+ m_2\hat{Y}
+		+ m_3\hat{Z}.
+		\tag{1.2}
+	\end{align*}
+	Obtain $m_{0,1,2,3}$.
+	\begin{solution}
+		For $\hat{\sigma}_0=\hat{1},\hat{\sigma}_1=\hat{X},\hat{\sigma}_2=\hat{Y},\hat{\sigma}_3=\hat{Z}$, note that under the Hilbert-Schmidt norm $\braket{\psi_i|\psi_j}=\operatorname{tr}(\psi_i^\dagger\psi_j)=2\delta_{ij}$. Thus $m_i = \frac{1}{2}\braket{\hat{\sigma}_i|\hat{M}} \implies$
+		\begin{align*}
+			m_0 &= \frac{1}{2}\operatorname{tr}
+			\left[\begin{pmatrix}
+				1 & 0 \\
+				0 & 1
+			\end{pmatrix}
+			\begin{pmatrix}
+				3 & 6 \\
+				4 & 5
+			\end{pmatrix}\right] = 4 \\
+			m_1 & = \frac{1}{2}\operatorname{tr}
+			\left[\begin{pmatrix}
+				0 & 1 \\
+				1 & 0
+			\end{pmatrix}
+			\begin{pmatrix}
+				3 & 6 \\
+				4 & 5
+			\end{pmatrix}\right] = 5 \\
+			m_2 &= \frac{1}{2}\operatorname{tr}
+			\left[\begin{pmatrix}
+				0 & -i \\
+				i & 0
+			\end{pmatrix}
+			\begin{pmatrix}
+				3 & 6 \\
+				4 & 5
+			\end{pmatrix}\right]
+			= i \\
+			m_3 &= \frac{1}{2}
+			\operatorname{tr}
+			\left[\begin{pmatrix}
+				1 & 0 \\
+				0 & -1
+			\end{pmatrix}
+			\begin{pmatrix}
+				3 & 6 \\
+				4 & 5
+			\end{pmatrix}\right] = -1
+		\end{align*}
+	\end{solution}
+\end{document}
