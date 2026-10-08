@@ -26,7 +26,9 @@
 \newif\ifsteps
 \stepstrue
 %\stepsfalse
-
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\usepackage{dsfont}
 \renewcommand{\solutiontitle}{\noindent}
 \renewcommand{\qedsymbol}{$\blacksquare$}
 \newcommand{\x}{\times}
@@ -49,10 +51,8 @@
 \newcommand{\ess}{\mathcal{S}}
 \newcommand{\avg}[1]{\langle {#1} \rangle}
 \newcommand{\bigavg}[1]{\left\langle {#1} \right\rangle}
-%\newcommand{\braket}[2]{\langle {#1} \mid {#2}\rangle}
-%\newcommand{\ket}[1]{\left\lvert {#1}\right\rangle}
 \newcommand{\allint}{\int_{-\infty}^{+\infty}}
-\newcommand\todo[1]{\textcolor{red}{#1}}
+%\newcommand\todo[1]{\textcolor{red}{#1}}
 \newcommand{\fullwidthseed}{\par\noindent\rule{\linewidth}{0pt}\vspace*{-\topskip}}
 \newcommand{\vect}[1]{|{#1}\rangle}
 \newcommand{\schro}{Schr{\"o}dinger}
@@ -63,7 +63,7 @@
 \newcommand{\scriptr}{\mathcalligra{r}\,}
 \newcommand{\boldscriptr}{\pmb{\mathcalligra{r}}\,}
 \usepackage{comment}
-\includecomment{steps}
+\includecomment{comments}
 \theoremstyle{definition}
 \newtheorem{definition}{\underline{Definition}}[section]
 \newtheorem{theorem}{\underline{Theorem}}[section]
@@ -85,6 +85,18 @@
 
 \theoremstyle{bulleted}
 \newtheorem{bulletlemma}{\underline{Lemma}}[section]
+
+\usepackage{environ}
+\NewEnviron{todo}{%
+	\par\medskip
+	\begingroup
+	\color{red}%
+	\noindent
+	\textbf{TODO:}\enspace
+	\BODY\par
+	\endgroup
+	\medskip
+}
 
 \begin{document}
 	\begin{center}
@@ -284,7 +296,7 @@
 				\operatorname{tr}(\sigma_y\sigma_z)&=i\operatorname{tr}(\sigma_x)=0,\\
 				\operatorname{tr}(\sigma_z\sigma_x)&=i\operatorname{tr}(\sigma_y)=0.
 			\end{align*}
-			Thus under the Hilbert-Schmidt inner product, the Pauli matrices are mutually orthogonal. They are also orthogonal to the identity because $(I,\sigma_i)=\operatorname{tr}(\sigma_i)=0$ $\implies$ they form a basis for $L_{\mathbb C^2}$ since they are a set of 4 linearly independent vectors that span the space (since $\dim(L_{\mathbb C^2})=4$). To obtain an orthonormal basis, note that $\hat{1}^\dagger \hat{1}=\hat{1}$ and $\sigma_i^\dagger\sigma_i=\hat{1}$. Therefore
+			Thus under the Hilbert-Schmidt inner product, the Pauli matrices are mutually orthogonal. They are also orthogonal to the identity because $(I,\sigma_i)=\operatorname{tr}(\sigma_i)=0$ $\implies$ they form a basis for $L_{\mathbb C^2}$ since they are a set of 4 linearly independent vectors that span the space (since $\dim(L_{\mathbb C^2})=4$). To obtain an orthonormal basis, note that $\mathds{1}^\dagger \mathds{1}=\mathds{1}$ and $\sigma_i^\dagger\sigma_i=\mathds{1}$. Therefore
 			\begin{align*}
 				(I,I)=\operatorname{tr}(I)=2,\qquad
 				(\sigma_i,\sigma_i)=\operatorname{tr}(I)=2.
@@ -298,12 +310,14 @@
 		\subsection{Properties of the Trace Operation}
 		\noindent Some facts about the trace operation
 		\begin{bulletlemma}
-			The trace operation is linear over complex scalars$\operatorname{tr}(\alpha A+\beta B) =\alpha\operatorname{tr}(A)+\beta\operatorname{tr}(B)$
+			The trace operation is linear over complex scalars i.e. $\operatorname{tr}(\alpha A+\beta B) =\alpha\operatorname{tr}(A)+\beta\operatorname{tr}(B)$
 		\end{bulletlemma}
 		\begin{bulletlemma}
 			The trace operation of a product of linear operators is invariant under cyclic permutations i.e.
 		\end{bulletlemma}
-		\todo{Add more lemmas about trace}
+		\begin{todo}
+			Add more lemmas about trace
+		\end{todo}
 		
 	\section{Linear Operators and Observables}
 	\begin{definition}
@@ -338,7 +352,7 @@
 	\end{align*}
 	Not also that
 	\begin{align*}
-		\left(\sum_{i}\ket{i}\bra{i}\right)\ket{v} = \sum_{i}v_i\ket{i}=\hat{1} \quad\implies\quad \sum_{i} \ket{i}\bra{i} = \hat{1}
+		\left(\sum_{i}\ket{i}\bra{i}\right)\ket{v} = \sum_{i}v_i\ket{i}=\mathds{1} \quad\implies\quad \sum_{i} \ket{i}\bra{i} = \mathds{1}
 	\end{align*}
 	We can define the product of two operators \(\hat M,\hat N\in \mathbb{L}_\mathbb{V}\) as
 	\[
@@ -401,7 +415,9 @@
 		\alpha^*\hat A^\dagger+\beta^*\hat B^\dagger.
 		$
 	\end{bulletlemma}
-	\todo{Add more lemmas}
+	\begin{todo}
+		Add more lemmas
+	\end{todo}
 	
 	\begin{definition}
 		An operator $\hat{O}$ is \textit{\textbf{Hermitian}} if and only if $\hat{O} = \hat{O}^\dagger$. Every physical observable in quantum mechanics corresponds to a Hermitian operator.
@@ -489,9 +505,154 @@
 	after measurement.
 	
 	\section{Qubit and Bloch Sphere}
+	\subsection{Qubits}
 	\begin{definition}
-		A \textit{\textbf{qubit}} is a two state system associated with Hilbert space $\mathbb{C}^2$. Most commonly, we can think of it as the space of spin states for an electron. The conventions $\ket{0}$ and $\ket{\uparrow}$ are used to denote the spin up state i.e $s=\frac{1}{2}\hbar$. $\ket{1}$ and $\ket{\downarrow}$ are used to denote the spin does state i.e. $s=-\frac{1}{2}\hbar$ state.
+		A \textit{\textbf{qubit}} is a two state system associated with Hilbert space $\mathbb{C}^2$. Most commonly, we can think of it as the space of spin states for an electron. The conventions $\ket{0}$ and $\ket{\uparrow}$ are used to denote the spin up state i.e $s=\frac{\hbar}{2}$. $\ket{1}$ and $\ket{\downarrow}$ are used to denote the spin does state i.e. $s=-\frac{\hbar}{2}$ state.
 	\end{definition}
+	\noindent Recall the 3 Pauli matrices
+	\begin{align*}
+		\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
+		\sigma_y=\begin{pmatrix}0&-i\\i&0\end{pmatrix},\quad
+		\sigma_z=\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+	\end{align*}
+	Their eigenvalues are $\pm 1$ and their associated normalized eigenvectors are
+	\begin{align*}
+		\chi_\pm^{(x)} = \left\{
+		\begin{pmatrix}
+			1/\sqrt{2} \\
+			1/\sqrt{2}
+		\end{pmatrix},
+		\begin{pmatrix}
+			1/\sqrt{2} \\
+			-1/\sqrt{2}
+		\end{pmatrix}
+		\right\},\quad
+		\chi_\pm^{(y)} = \left\{
+		\begin{pmatrix}
+			1/\sqrt{2} \\
+			i/\sqrt{2}
+		\end{pmatrix},
+		\begin{pmatrix}
+			1/\sqrt{2} \\
+			-i/\sqrt{2}
+		\end{pmatrix}
+		\right\},\quad
+		\chi_\pm^{(z)} = \left\{
+		\begin{pmatrix}
+			1 \\
+			0
+		\end{pmatrix},
+		\begin{pmatrix}
+			0 \\
+			1
+		\end{pmatrix}
+		\right\}
+	\end{align*}
+	For any arbitrary normalized state $\ket{\psi} = a\ket{0} + b\ket{1}$, we can express it in terms of the eigenvectors of $\sigma_x$ or $\sigma_y$:
+	\begin{align*}
+		\ket{\psi}=\left(\tfrac{a+b}{\sqrt{2}}\right)\chi_{+}^{(x)}+\left(\tfrac{a-b}{\sqrt{2}}\right)\chi_{-}^{(x)} = \left(\tfrac{a-ib}{\sqrt{2}}\right)\chi_{+}^{(y)}+\left(\tfrac{a+ib}{\sqrt{2}}\right)\chi_{-}^{(y)}
+	\end{align*}
+	
+	\subsection{The Bloch Sphere}
+	
+	\begin{center}
+		\begin{tikzpicture}[
+			scale=1,
+			line cap=round,
+			line join=round,
+			>=stealth
+			]
+			
+			% Sphere
+			\def\R{3}
+			\draw[thick, fill=gray!4] (0,0) circle (\R);
+			
+			% Equator: hidden rear half and visible front half
+			\draw[thick]
+			(-\R,0) arc[start angle=180,end angle=360,
+			x radius=\R,y radius=0.75];
+			
+			\draw[thick, dashed]
+			(\R,0) arc[start angle=0,end angle=180,
+			x radius=\R,y radius=0.75];
+			
+			% Coordinate axes
+			\draw[thick] (0,0) -- (0,3);
+			\draw[thick] (0,0) -- (0,-3);
+			
+			\draw[thick,->] (0,0) -- (-2.15,-2.25);
+			\node[above] at (-2,-2) {$y$};
+			\draw[thick,->]    (0,0) -- (3,0);
+			\node[above] at (2.45,0) {$x$};
+			\node[left] at (0,2.6) {$z$};
+			
+			% Bloch vector endpoint and its projection
+			\coordinate (P) at (0.85,1.95);
+			\coordinate (Q) at (0.78,-0.62);
+			
+			\draw[very thick,->] (0,0) -- (P);
+			\fill (P) circle (3.5pt);
+			
+			% Dashed projection onto the equatorial plane
+			\draw[thick,dashed] (P) -- (Q);
+			\draw[thick,dashed] (0,0) -- (Q);
+			
+			% Polar angle theta
+			\draw[thick]
+			(0,1)
+			arc[start angle=90,end angle=70,radius=1.1];
+			
+			\node at (0.3,1.2) {$\theta$};
+			
+			% Azimuthal angle phi
+			\draw[thick]
+			(-0.29,-0.3)
+			arc[start angle=226,end angle=325,
+			radius=0.4];
+			
+			\node at (-0.27,-0.53) {$\phi$};
+			
+			% Basis-state labels
+			\fill (0,3) circle (3.5pt);
+			\fill (0,-3) circle (3.5pt);
+			
+			\node[above] at (0,3.1) {$\ket{0}$};
+			\node[below] at (0,-3.1) {$\ket{1}$};
+			
+			% State label
+			\node[right] at ($(P)+(0.18,0.02)$) {$\ket{\psi}$};
+			
+		\end{tikzpicture}
+	\end{center}
+	The Bloch sphere is useful because it turns a two-level quantum state into geometry: measurement probabilities become projections, unitary evolution becomes rotation, and mixedness becomes distance from the center.
+	\subsubsection{Visualizing a state as a point on the sphere}
+	Choose \(|0\rangle=|\uparrow\rangle\) and \(|1\rangle=|\downarrow\rangle\). Any normalized pure qubit state, after removing an overall phase, can be written as
+	\[
+	|\psi\rangle=\cos\left(\tfrac{\theta}{2}\right)|0\rangle
+	+e^{i\phi}\sin\left(\tfrac{\theta}{2}\right)|1\rangle
+	\]Its Bloch vector is
+	\[
+	{\mathbf r=(\sin\theta\cos\phi,\;\sin\theta\sin\phi,\;\cos\theta).}
+	\]
+	which is the unit radial vector in spherical coordinates. Here \(\theta\) is the polar angle measured from \(+z\), and \(\phi\) is the azimuthal angle. \\ \\
+	The half-angle in the ket makes it so that
+	\begin{enumerate}[label=(\roman*)]
+		\item \(|0\rangle\) and \(|1\rangle\) are the north and south poles
+		\item \((|0\rangle\pm|1\rangle)/\sqrt2\) point along \(\pm x\) (often also notated $\ket{\rightarrow}$ and $\ket{\leftarrow}$ or $\ket{+}$ and $\ket{-}$)
+		\item \((|0\rangle\pm i|1\rangle)/\sqrt2\) point along \(\pm y\)
+		\item The Pauli expectations are equal to the cooresponding coordinate of the Bloch vector i.e. the projection onto the $x,y,z$ axes
+		\begin{align*}
+			\langle \hat{X}\rangle=\sin\theta\cos\phi\qquad,\qquad\langle \hat{Y}\rangle = \sin\theta\sin\phi\qquad,\qquad\langle \hat{Z}\rangle=\cos\theta
+		\end{align*}
+	\end{enumerate}
+	Orthogonal kets correspond to antipodal points on the sphere, not perpendicular Bloch vectors. Multiplying a ket by an overall phase leaves its point unchanged while changing the relative phase moves it. \\ \\
+	Other useful facts:
+	\begin{enumerate}[label=(\roman*)]
+		\item $\theta$ controls the measurement probabilies in the $z$-basis i.e.
+		\begin{align*}
+			P(Z=+1)=\cos^2(\theta/2)\qquad,\qquad P(Z=-1)=\sin^2(\theta/2)
+		\end{align*}
+	\end{enumerate}
 	
 	\section{Composite Quantum Systems}
 	\subsection{Tensors}
@@ -541,13 +702,16 @@
 			(\hat{A}\otimes\hat{B})(\ket{v}\otimes\ket{w}) = \hat{A}\ket{v}\otimes \hat{B}\ket{w}
 		\end{align*}
 	\end{definition}
+	\begin{todo}
+		Add explicit examples with matrices for clarity
+	\end{todo}
 	
 	\subsection{Generalized Measurements}
 	One way we can glean information about a system is to let it interact with another system that we can measure (called the ancilla). Consider two Hilbert spaces $\mathbb{V}_s$ (measured system) and $\mathbb{V}_a$ (ancilla system) and a state $\ket{\Psi}$ in their tensor product space
 	\begin{align*}
 		\ket{\Psi} \equiv \ket{\psi}_s \otimes \ket{\phi}_a
 	\end{align*}
-	evolving unitarily under a Hamiltonian $\hat{H}$ for time $t$. Suppose we perform a projective measurement on $\mathbb{V}_a$ associated with the linear operator $\hat{1}\otimes \hat{P}_a$, where $\hat{P}_a$ has the spectral decomposition
+	evolving unitarily under a Hamiltonian $\hat{H}$ for time $t$. Suppose we perform a projective measurement on $\mathbb{V}_a$ associated with the linear operator $\mathds{1}\otimes \hat{P}_a$, where $\hat{P}_a$ has the spectral decomposition
 	\begin{align*}
 		\hat{P}_a = \sum_q \lambda_q \ket{q}\bra{q}
 	\end{align*}
@@ -564,7 +728,7 @@
 	\begin{align*}
 		\hat{M}_q|\psi\rangle_s
 		=
-		\bigl(\hat1_s\otimes{}_a\langle q|\bigr)
+		\bigl(\mathds{1}_s\otimes{}_a\langle q|\bigr)
 		\hat U
 		\bigl(|\psi\rangle_s\otimes|\phi\rangle_a\bigr)
 	\end{align*}
@@ -577,7 +741,7 @@
 		\item Taking the inner product
 		\[
 		\begin{aligned}
-			\bigg\langle\bigl(\hat1_s\otimes{}_a\langle q|\bigr)\,\bigg\lvert\,
+			\bigg\langle\bigl(\mathds{1}_s\otimes{}_a\langle q|\bigr)\,\bigg\lvert\,
 			\sum_{i,j}c_{ij}\bigl(|i\rangle_s\otimes|j\rangle_a\bigr)\bigg\rangle
 			&=\sum_{i,j}c_{ij}|i\rangle_s
 			\underbrace{{}_a\langle q|j\rangle_a}_{\delta_{qj}}
@@ -606,304 +770,422 @@
 	\begin{align*}
 		\prob(q)  = \braket{\Psi' | \hat{P}_q | \Psi'} = {}_s\langle\psi | \hat{M}_q^\dagger \hat{M}_q | \psi\rangle_s
 	\end{align*}
-	thus the $\hat{M}_q$'s satisfy the completeness relation $\sum_{q} = \hat{M}_a^\dagger \hat{M}_q=\hat{1}_s$. Alternatively, we can also write
+	thus the $\hat{M}_q$'s satisfy the completeness relation $\sum_{q} = \hat{M}_a^\dagger \hat{M}_q=\mathds{1}_s$. Alternatively, we can also write
 	\begin{align*}
 		\prob(q) = \operatorname{tr}(\hat{M}_q\ket{\psi}_s\bra{\psi}_s \hat{M}_q^\dagger
 	\end{align*}
 	\begin{example}
-		\todo{Add examples for clarity}
+		\begin{todo}
+			Add examples for clarity
+		\end{todo}
 	\end{example}
 	
-	\section{Appendix, Proofs of Theorems and Lemmas}
-	\begin{theorem}
-		\textit{\textbf{Spectral Decomposition Theorem}}
-		A linear operator \(\hat O\) on \(V\) is diagonal with respect to some orthonormal basis of \(V\) if and only if \(\hat O\) is normal, i.e.
-		$\hat O^\dagger\hat O=\hat O\hat O^\dagger$
-	\end{theorem}
-	\begin{proof}
-		Being diagonal in an orthonormal basis means that
-		\[
-		\hat O=\sum_i O_i|i\rangle\langle i|,
-		\tag{1.53}
-		\]
-		where the \(|i\rangle\) form a complete orthonormal basis and
-		\[
-		\hat O|i\rangle=O_i|i\rangle.
-		\]
-		Proof: an orthonormal eigenbasis implies normality.
-		Suppose \(\hat O\) has the form (1.53). Taking its adjoint gives
-		\[
-		\hat O^\dagger=\sum_i O_i^*|i\rangle\langle i|.
-		\]
-		Using \(\langle i|j\rangle=\delta_{ij}\),
-		\[
-		\begin{aligned}
-			\hat O^\dagger\hat O
-			&=\sum_{i,j}O_i^*O_j
-			|i\rangle\langle i|j\rangle\langle j|\\
-			&=\sum_i|O_i|^2|i\rangle\langle i|.
-		\end{aligned}
-		\]
-		Similarly,
-		\[
-		\hat O\hat O^\dagger
-		=\sum_i|O_i|^2|i\rangle\langle i|.
-		\]
-		Therefore \(\hat O^\dagger\hat O=\hat O\hat O^\dagger\).
-		Proof: normality implies an orthonormal eigenbasis.
-		We first establish a useful fact. If \(\hat O\) is normal and
-		\[
-		\hat O|v\rangle=\lambda|v\rangle,
-		\]
-		then
-		\[
-		\hat O^\dagger|v\rangle=\lambda^*|v\rangle.
-		\]
-		To prove this, define
-		\[
-		\hat A=\hat O-\lambda\hat1.
-		\]
-		Normality of \(\hat O\) implies normality of \(\hat A\), because
-		\[
-		\hat A^\dagger\hat A-\hat A\hat A^\dagger
-		=\hat O^\dagger\hat O-\hat O\hat O^\dagger=0.
-		\]
-		Consequently,
-		\[
-		\begin{aligned}
-			\|\hat A^\dagger|v\rangle\|^2
-			&=\langle v|\hat A\hat A^\dagger|v\rangle\\
-			&=\langle v|\hat A^\dagger\hat A|v\rangle\\
-			&=\|\hat A|v\rangle\|^2=0.
-		\end{aligned}
-		\]
-		Thus \(\hat A^\dagger|v\rangle=0\), proving the fact.
-		We now use induction on \(n=\dim V\). The result is immediate for \(n=1\).
-		For \(n>1\), a complex matrix has at least one eigenvalue, so choose a normalized eigenvector \(|1\rangle\):
-		\[
-		\hat O|1\rangle=\lambda_1|1\rangle,
-		\qquad
-		\hat O^\dagger|1\rangle=\lambda_1^*|1\rangle.
-		\]
-		Consider its orthogonal complement
-		\[
-		W=\{|w\rangle\in V:\langle1|w\rangle=0\}.
-		\]
-		For any \(|w\rangle\in W\),
-		\[
-		\langle1|\hat O|w\rangle
-		=\lambda_1\langle1|w\rangle=0,
-		\]
-		where we used the adjoint of
-		\(\hat O^\dagger|1\rangle=\lambda_1^*|1\rangle\).
-		Likewise,
-		\[
-		\langle1|\hat O^\dagger|w\rangle
-		=\lambda_1^*\langle1|w\rangle=0.
-		\]
-		Therefore both \(\hat O\) and \(\hat O^\dagger\) map \(W\) into itself. Their restrictions to \(W\) still commute, so the restriction of \(\hat O\) is normal.
-		Since \(\dim W=n-1\), the induction hypothesis supplies an orthonormal eigenbasis
-		\[
-		|2\rangle,\ldots,|n\rangle
-		\]
-		for \(W\). Together with \(|1\rangle\), these form a complete orthonormal eigenbasis for \(V\). Hence
-		\[
-		\hat O=\sum_i\lambda_i|i\rangle\langle i|
-		\]
-	\end{proof}
-	\begin{theorem}
-		A normal matrix is Hermitian if and only if it has real eigenvalues
-	\end{theorem}
-	\begin{proof}
-		By Theorem 2.1, a normal operator has a spectral decomposition
-		\[
-		\hat O=\sum_i\lambda_i|i\rangle\langle i|,
-		\qquad
-		\hat O^\dagger=\sum_i\lambda_i^*|i\rangle\langle i|.
-		\]
-		If \(\hat O\) is Hermitian, then
-		\[
-		\lambda_i
-		=\langle i|\hat O|i\rangle
-		=\langle i|\hat O^\dagger|i\rangle
-		=\lambda_i^*,
-		\]
-		so every eigenvalue is real.
-		Conversely, if all \(\lambda_i\) are real, then
-		\[
-		\hat O^\dagger
-		=\sum_i\lambda_i^*|i\rangle\langle i|
-		=\sum_i\lambda_i|i\rangle\langle i|
-		=\hat O.
-		\]
-		Thus \(\hat O\) is Hermitian.
-	\end{proof}
-	\begin{theorem}
-		Eigenkets corresponding to different eigenvalues of a Hermitian matrix are orthogonal
-	\end{theorem}
-	\begin{proof}
-		Let \(\hat M=\hat M^\dagger\), and suppose
-		\[
-		\hat M|i\rangle=\lambda_i|i\rangle,
-		\qquad
-		\hat M|j\rangle=\lambda_j|j\rangle,
-		\qquad
-		\lambda_i\ne\lambda_j.
-		\]
-		A Hermitian operator is normal, so Theorem 2.2 tells us that its eigenvalues are real. Taking the adjoint of the first eigenvalue equation gives
-		\[
-		\langle i|\hat M=\lambda_i\langle i|.
-		\]
-		Now evaluate the same matrix element in two ways:
-		\[
-		\langle i|\hat M|j\rangle
-		=\lambda_j\langle i|j\rangle
-		\]
-		by acting to the right, while
-		\[
-		\langle i|\hat M|j\rangle
-		=\lambda_i\langle i|j\rangle
-		\]
-		by acting to the left. Subtracting,
-		\[
-		(\lambda_i-\lambda_j)\langle i|j\rangle=0.
-		\]
-		Since \(\lambda_i\ne\lambda_j\),
-		\[
-		{\langle i|j\rangle=0}
-		\]
-		For equal eigenvalues, this argument imposes no condition on the overlap. Vectors within a degenerate eigenspace need not initially be orthogonal, but an orthonormal basis can be chosen there.
-	\end{proof}
-	\begin{theorem}
-		A positive linear operator must be Hermitian. Here positive means
-		\[
-		\langle v|\hat O|v\rangle\geq0
-		\]
-		for every \(|v\rangle\in V\). In particular, every such expectation value is real. Hermiticity is not assumed in this definition.
-	\end{theorem}
-	\begin{proof}
-		Decompose \(\hat O\) into its Hermitian and anti-Hermitian parts:
-		\[
-		\hat O=\hat H+i\hat K,
-		\]
-		where
-		\[
-		\hat H=\frac{\hat O+\hat O^\dagger}{2},
-		\qquad
-		\hat K=\frac{\hat O-\hat O^\dagger}{2i}.
-		\]
-		Directly taking adjoints shows
-		\[
-		\hat H^\dagger=\hat H,
-		\qquad
-		\hat K^\dagger=\hat K.
-		\]
-		For every \(|v\rangle\),
-		\[
-		\langle v|\hat O|v\rangle
-		=
-		\langle v|\hat H|v\rangle
-		+i\langle v|\hat K|v\rangle.
-		\]
-		Both expectations on the right are real because \(\hat H,\hat K\) are Hermitian. Positivity requires the left side to be real, so its imaginary part vanishes:
-		\[
-		\langle v|\hat K|v\rangle=0
-		\quad\text{for every }|v\rangle.
-		\]
-		Since \(\hat K\) is Hermitian, it has a complete orthonormal eigenbasis. For any normalized eigenvector \(|i\rangle\),
-		\[
-		\hat K|i\rangle=k_i|i\rangle
-		\quad\Longrightarrow\quad
-		k_i=\langle i|\hat K|i\rangle=0.
-		\]
-		All eigenvalues vanish, hence \(\hat K=0\). Therefore
-		\[
-		\boxed{\hat O=\hat H=\hat O^\dagger.}
-		\]
-		In fact, this proof shows that real expectation values for every vector already imply Hermiticity. Nonnegativity further ensures that the eigenvalues are nonnegative.
-	\end{proof}
-	\begin{theorem}
-		\textbf{\textit{Simultaneous diagonalization theorem}}
-		Two Hermitian linear operators \(\hat A\) and \(\hat B\) can be diagonalized simultaneously if and only if
-		\[
-		\boxed{[\hat A,\hat B]=0.}
-		\]
-		In other words, there is a complete orthonormal basis of simultaneous eigenkets:
-		\[
-		\hat A|a,b\rangle=a|a,b\rangle,
-		\qquad
-		\hat B|a,b\rangle=b|a,b\rangle.
-		\tag{1.55}
-		\]
-		If several independent states have the same pair of eigenvalues, an additional label is needed.
-		Proof: simultaneous diagonalization implies commutation.
-		Using conventional basis indices, suppose
-		\[
-		\hat A|i\rangle=a_i|i\rangle,
-		\qquad
-		\hat B|i\rangle=b_i|i\rangle
-		\]
-		for every vector in a complete basis. Then
-		\[
-		\hat A\hat B|i\rangle
-		=a_ib_i|i\rangle
-		=\hat B\hat A|i\rangle.
-		\]
-		Thus
-		\[
-		[\hat A,\hat B]|i\rangle=0
-		\]
-		for every basis vector. By linearity, the commutator vanishes on every vector:
-		\[
-		[\hat A,\hat B]=0.
-		\]
-	\end{theorem}
-	\begin{proof}
-		Commutation implies simultaneous diagonalization.
-		Suppose \([\hat A,\hat B]=0\). Since \(\hat A\) is Hermitian, \(V\) decomposes into its mutually orthogonal eigenspaces.
-		Let \(V_a\) be the eigenspace with eigenvalue \(a\). For any \(|v\rangle\in V_a\),
-		\[
-		\hat A|v\rangle=a|v\rangle.
-		\]
-		Using commutation,
-		\[
-		\begin{aligned}
-			\hat A(\hat B|v\rangle)
-			&=\hat B\hat A|v\rangle\\
-			&=\hat B(a|v\rangle)\\
-			&=a(\hat B|v\rangle).
-		\end{aligned}
-		\]
-		Therefore \(\hat B|v\rangle\) also belongs to \(V_a\): \(\hat B\) preserves every eigenspace of \(\hat A\).
-		Restrict \(\hat B\) to one such eigenspace \(V_a\). This restriction is still Hermitian, so it has an orthonormal eigenbasis within \(V_a\). Every vector in that basis is:
-		- an eigenvector of \(\hat A\), because it belongs to \(V_a\);
-		- an eigenvector of \(\hat B\), by construction.
-		Perform this diagonalization separately in every eigenspace of \(\hat A\). Combining the resulting bases gives a complete orthonormal basis of simultaneous eigenvectors for \(V\). \(\square\)
-		The degenerate case is the important step: commutation does not guarantee that every arbitrarily chosen eigenbasis of \(\hat A\) already diagonalizes \(\hat B\). It guarantees that we can choose suitable vectors within each degenerate eigenspace.
-		The spectral-projector form at the bottom of the page
-		A Hermitian operator has an orthonormal eigenbasis in which
-		\[
-		\hat M=\sum_i\lambda_i|i\rangle\langle i|.
-		\tag{1.56}
-		\]
-		If \(m\) labels the distinct eigenvalues, group all basis vectors sharing each eigenvalue:
-		\[
-		\boxed{
-			\hat M=\sum_m m\hat P_m,
-			\qquad
-			\hat P_m=\sum_j\delta_{\lambda_j,m}|j\rangle\langle j|.
-		}
-		\]
-		The operator \(\hat P_m\) projects onto the entire eigenspace with eigenvalue \(m\). Indeed,
-		\[
-		\begin{aligned}
-			\sum_m m\hat P_m
-			&=\sum_m\sum_jm\,\delta_{\lambda_j,m}|j\rangle\langle j|\\
-			&=\sum_j\lambda_j|j\rangle\langle j|\\
-			&=\hat M.
-		\end{aligned}
-		\]
-		For each fixed \(j\), only the term \(m=\lambda_j\) survives. This form makes degeneracy explicit without requiring a particular basis inside each eigenspace.
-	\end{proof}
+	\section{Density Matrices, Mixed States, Entanglement}
+	\begin{definition}
+		Suppose we have a system that is described by normalized (but not necessarily orthogonal) states $\ket{\psi_i}$ with probability $p_i$. This system can then be described by a \textit{\textbf{density matrix}}
+		\begin{align*}
+			\hat{\rho} = \sum_{i} p_i \ket{\psi_i}\bra{\psi_i}
+		\end{align*}
+		Then, the expactation value of any operator $\hat{A}$ is
+		\begin{align*}
+			\avg{\hat{A}} = \sum_{i} p_i \braket{\psi_i | \hat{A} | \psi_i} = \operatorname{tr}(\hat{\rho}\hat{A})
+		\end{align*}
+		If the system is described by a specific state $\psi$, we call it a \textit{\textbf{pure state}} $\iff$
+		\begin{align*}
+			\hat{\rho} = \ket{\psi}\bra{\psi} \quad,\quad \hat{\rho}^2 = \hat{\rho}
+		\end{align*}
+		is simply the projection operator. A state that is not pure is called a \textit{\textbf{mixed state}}.
+	\end{definition}
+	\subsection{Properties of the Density Matrix}
+	The density matrix has the following properties:
+	\begin{enumerate}[label=(\roman*)]
+		\item It is self-adjoint: $\hat{\rho} = \hat{\rho}^\dagger$.
+		
+		\item It has unit trace: $\operatorname{tr}(\hat{\rho}) = 1$.
+		\begin{equation*}
+			\begin{aligned}
+				\operatorname{tr}(\hat{\rho})
+				&= \sum_n \bra{n}\hat{\rho}\ket{n}
+				= \sum_n \sum_i
+				p_i \braket{n}{\psi_i}\braket{\psi_i}{n} \\
+				&= \sum_i p_i \sum_n
+				\braket{\psi_i}{n}\braket{n}{\psi_i}
+				= \sum_i p_i \braket{\psi_i}{\psi_i}
+				= 1.
+			\end{aligned}
+		\end{equation*}
+		
+		Here, in an intermediate step, we needed to use the
+		decomposition of unity
+		$\sum_n \ket{n}\bra{n} = \mathds{1}$ and, in the final
+		step, we used the fact that our states $\ket{\psi_i}$
+		are normalised. We see that the fact the density matrix
+		has unit trace is equivalent to the normalisation of
+		a probability distribution, $\sum_i p_i = 1$.
+		
+		\item It is non-negative i.e. $\hat{\rho} \geq 0$:
+		$\bra{\phi}\hat{\rho}\ket{\phi} \geq 0$
+		for all $\ket{\phi} \in \mathcal{H}$.
+		This is equivalent to the requirement
+		that $p_i \geq 0$.
+	\end{enumerate}
+	
+	Any operator $\hat{\rho}$ which satisfies these three
+	properties can be viewed as a density matrix for a quantum
+	system. To see this, suppose $\{\ket{\phi_n}\}$ are eigenvectors of $\hat{\rho}$ with eigenvalues $\{p_n\}$. Then
+	\begin{equation*}
+		\hat{\rho}\ket{\phi_n} = p_n\ket{\phi_n}
+	\end{equation*}
+	Because $\hat{\rho} = \hat{\rho}^\dagger$, we know that
+	$p_n \in \mathbb{R}$. Properties (ii) and (iii) above $\implies \sum_n p_n = 1$ and $p_n \geq 0\implies$ we can interpret$\{p_n\}$ as a probability
+	distribution and write $\hat{\rho}$ as
+	\begin{equation*}
+		\hat{\rho} = \sum_n p_n\ket{\phi_n}\bra{\phi_n}
+	\end{equation*}
+	\begin{todo}
+		Add how it relates back to the Bloch sphere (pages 1067-1070 in Tong)
+	\end{todo}
+	
+	\subsection{Entanglement}
+	\begin{definition}
+		A Hilbert space $\mathcal{H}$ has a \textit{\textbf{bipartite decomposition}} if it can be expressed as the tensor product space of two Hilbert spaces $\mathcal{H} = \mathcal{H}_A \otimes \mathcal{H}_B$.
+	\end{definition}
+	If $\{\ket{i}_A\}$ and $\{\ket{j}_B\}$ are orthonormal bases for $\mathcal{H}_A$ and $\mathcal{H}_B$, then a general composite state $\ket{\Psi}\in\mathcal{H}$ has the form
+	\begin{align*}
+		\ket{\Psi} = \sum_{i,j} c_{ij}(\ket{i}_A \otimes \ket{j}_B)
+	\end{align*}
+	All measurements on only $\mathcal{H}_A$ correspond to operators of the form $\hat{O} = \hat{A}\otimes \mathds{1}$. If $\hat{\rho}_{AB}$ is the density matrix for the full system, then the expectation value of
+	\begin{align*}
+		\avg{\hat{A}} = \operatorname{tr}_A\operatorname{tr}_B\left((\hat{A}\otimes\mathds{1})\hat{\rho}_{AB}\right) = \operatorname{tr}_A(\hat{A}\hat{\rho}_A)
+	\end{align*}
+	where $\hat{\rho}_A = \operatorname{tr}_B(\hat{\rho}_{AB})$ is the \textit{\textbf{reduced density matrix}} which is obtained by taking the partial trace over $\mathcal{H}_B$.
+	
+	\begin{example}
+		Consider two matrices $A^{m\x m}$ and $B^{n\x n}$ (which could represent linear operators).
+		
+		Then
+		\begin{align*}
+			A\otimes B =
+			\begin{pmatrix}
+				a_{11} B & \cdots & a_{1m} B \\
+				\vdots & \ddots & \vdots \\
+				a_{m1} B & \cdots & a_{mm} B
+			\end{pmatrix}
+		\end{align*}
+		and $\operatorname{tr}(A\otimes B) = a_{11}\operatorname{tr}(B) + \cdots + a_{mm}\operatorname{tr}(B)=\operatorname{tr}(A)\operatorname{tr}(B)$ is a scalar, but the partial traces
+		\begin{align*}
+			\operatorname{tr}_B(A\otimes B) = 
+			\begin{pmatrix}
+				a_{11} \operatorname{tr}(B) & \cdots & a_{1m} \operatorname{tr}(B) \\
+				\vdots & \ddots & \vdots \\
+				a_{m1} \operatorname{tr}(B) & \cdots & a_{mm} \operatorname{tr}(B)
+			\end{pmatrix} = \operatorname{tr}(B) A
+		\end{align*}
+		\begin{align*}
+			\operatorname{tr}_A(A\otimes B) =
+			\begin{pmatrix}
+				b_{11} \operatorname{tr}(A) & \cdots & b_{1n} \operatorname{tr}(A) \\
+				\vdots & \ddots & \vdots \\
+				b_{n1} \operatorname{tr}(A) & \cdots & b_{nn} \operatorname{tr}(A)
+			\end{pmatrix}
+			=\operatorname{tr}(A) B
+		\end{align*}
+		are matrices.
+	\end{example}
+	
+	\begin{todo}
+		Add Schmidt decomposition
+	\end{todo}
+%	\section{Appendix, Proofs of Theorems and Lemmas}
+%	\begin{theorem}
+%		\textit{\textbf{Spectral Decomposition Theorem}}
+%		A linear operator \(\hat O\) on \(V\) is diagonal with respect to some orthonormal basis of \(V\) if and only if \(\hat O\) is normal, i.e.
+%		$\hat O^\dagger\hat O=\hat O\hat O^\dagger$
+%	\end{theorem}
+%	\begin{proof}
+%		Being diagonal in an orthonormal basis means that
+%		\[
+%		\hat O=\sum_i O_i|i\rangle\langle i|,
+%		\tag{1.53}
+%		\]
+%		where the \(|i\rangle\) form a complete orthonormal basis and
+%		\[
+%		\hat O|i\rangle=O_i|i\rangle.
+%		\]
+%		Proof: an orthonormal eigenbasis implies normality.
+%		Suppose \(\hat O\) has the form (1.53). Taking its adjoint gives
+%		\[
+%		\hat O^\dagger=\sum_i O_i^*|i\rangle\langle i|.
+%		\]
+%		Using \(\langle i|j\rangle=\delta_{ij}\),
+%		\[
+%		\begin{aligned}
+%			\hat O^\dagger\hat O
+%			&=\sum_{i,j}O_i^*O_j
+%			|i\rangle\langle i|j\rangle\langle j|\\
+%			&=\sum_i|O_i|^2|i\rangle\langle i|.
+%		\end{aligned}
+%		\]
+%		Similarly,
+%		\[
+%		\hat O\hat O^\dagger
+%		=\sum_i|O_i|^2|i\rangle\langle i|.
+%		\]
+%		Therefore \(\hat O^\dagger\hat O=\hat O\hat O^\dagger\).
+%		Proof: normality implies an orthonormal eigenbasis.
+%		We first establish a useful fact. If \(\hat O\) is normal and
+%		\[
+%		\hat O|v\rangle=\lambda|v\rangle,
+%		\]
+%		then
+%		\[
+%		\hat O^\dagger|v\rangle=\lambda^*|v\rangle.
+%		\]
+%		To prove this, define
+%		\[
+%		\hat A=\hat O-\lambda\mathds{1}.
+%		\]
+%		Normality of \(\hat O\) implies normality of \(\hat A\), because
+%		\[
+%		\hat A^\dagger\hat A-\hat A\hat A^\dagger
+%		=\hat O^\dagger\hat O-\hat O\hat O^\dagger=0.
+%		\]
+%		Consequently,
+%		\[
+%		\begin{aligned}
+%			\|\hat A^\dagger|v\rangle\|^2
+%			&=\langle v|\hat A\hat A^\dagger|v\rangle\\
+%			&=\langle v|\hat A^\dagger\hat A|v\rangle\\
+%			&=\|\hat A|v\rangle\|^2=0.
+%		\end{aligned}
+%		\]
+%		Thus \(\hat A^\dagger|v\rangle=0\), proving the fact.
+%		We now use induction on \(n=\dim V\). The result is immediate for \(n=1\).
+%		For \(n>1\), a complex matrix has at least one eigenvalue, so choose a normalized eigenvector \(|1\rangle\):
+%		\[
+%		\hat O|1\rangle=\lambda_1|1\rangle,
+%		\qquad
+%		\hat O^\dagger|1\rangle=\lambda_1^*|1\rangle.
+%		\]
+%		Consider its orthogonal complement
+%		\[
+%		W=\{|w\rangle\in V:\langle1|w\rangle=0\}.
+%		\]
+%		For any \(|w\rangle\in W\),
+%		\[
+%		\langle1|\hat O|w\rangle
+%		=\lambda_1\langle1|w\rangle=0,
+%		\]
+%		where we used the adjoint of
+%		\(\hat O^\dagger|1\rangle=\lambda_1^*|1\rangle\).
+%		Likewise,
+%		\[
+%		\langle1|\hat O^\dagger|w\rangle
+%		=\lambda_1^*\langle1|w\rangle=0.
+%		\]
+%		Therefore both \(\hat O\) and \(\hat O^\dagger\) map \(W\) into itself. Their restrictions to \(W\) still commute, so the restriction of \(\hat O\) is normal.
+%		Since \(\dim W=n-1\), the induction hypothesis supplies an orthonormal eigenbasis
+%		\[
+%		|2\rangle,\ldots,|n\rangle
+%		\]
+%		for \(W\). Together with \(|1\rangle\), these form a complete orthonormal eigenbasis for \(V\). Hence
+%		\[
+%		\hat O=\sum_i\lambda_i|i\rangle\langle i|
+%		\]
+%	\end{proof}
+%	\begin{theorem}
+%		A normal matrix is Hermitian if and only if it has real eigenvalues
+%	\end{theorem}
+%	\begin{proof}
+%		By Theorem 2.1, a normal operator has a spectral decomposition
+%		\[
+%		\hat O=\sum_i\lambda_i|i\rangle\langle i|,
+%		\qquad
+%		\hat O^\dagger=\sum_i\lambda_i^*|i\rangle\langle i|.
+%		\]
+%		If \(\hat O\) is Hermitian, then
+%		\[
+%		\lambda_i
+%		=\langle i|\hat O|i\rangle
+%		=\langle i|\hat O^\dagger|i\rangle
+%		=\lambda_i^*,
+%		\]
+%		so every eigenvalue is real.
+%		Conversely, if all \(\lambda_i\) are real, then
+%		\[
+%		\hat O^\dagger
+%		=\sum_i\lambda_i^*|i\rangle\langle i|
+%		=\sum_i\lambda_i|i\rangle\langle i|
+%		=\hat O.
+%		\]
+%		Thus \(\hat O\) is Hermitian.
+%	\end{proof}
+%	\begin{theorem}
+%		Eigenkets corresponding to different eigenvalues of a Hermitian matrix are orthogonal
+%	\end{theorem}
+%	\begin{proof}
+%		Let \(\hat M=\hat M^\dagger\), and suppose
+%		\[
+%		\hat M|i\rangle=\lambda_i|i\rangle,
+%		\qquad
+%		\hat M|j\rangle=\lambda_j|j\rangle,
+%		\qquad
+%		\lambda_i\ne\lambda_j.
+%		\]
+%		A Hermitian operator is normal, so Theorem 2.2 tells us that its eigenvalues are real. Taking the adjoint of the first eigenvalue equation gives
+%		\[
+%		\langle i|\hat M=\lambda_i\langle i|.
+%		\]
+%		Now evaluate the same matrix element in two ways:
+%		\[
+%		\langle i|\hat M|j\rangle
+%		=\lambda_j\langle i|j\rangle
+%		\]
+%		by acting to the right, while
+%		\[
+%		\langle i|\hat M|j\rangle
+%		=\lambda_i\langle i|j\rangle
+%		\]
+%		by acting to the left. Subtracting,
+%		\[
+%		(\lambda_i-\lambda_j)\langle i|j\rangle=0.
+%		\]
+%		Since \(\lambda_i\ne\lambda_j\),
+%		\[
+%		{\langle i|j\rangle=0}
+%		\]
+%		For equal eigenvalues, this argument imposes no condition on the overlap. Vectors within a degenerate eigenspace need not initially be orthogonal, but an orthonormal basis can be chosen there.
+%	\end{proof}
+%	\begin{theorem}
+%		A positive linear operator must be Hermitian. Here positive means
+%		\[
+%		\langle v|\hat O|v\rangle\geq0
+%		\]
+%		for every \(|v\rangle\in V\). In particular, every such expectation value is real. Hermiticity is not assumed in this definition.
+%	\end{theorem}
+%	\begin{proof}
+%		Decompose \(\hat O\) into its Hermitian and anti-Hermitian parts:
+%		\[
+%		\hat O=\hat H+i\hat K,
+%		\]
+%		where
+%		\[
+%		\hat H=\frac{\hat O+\hat O^\dagger}{2},
+%		\qquad
+%		\hat K=\frac{\hat O-\hat O^\dagger}{2i}.
+%		\]
+%		Directly taking adjoints shows
+%		\[
+%		\hat H^\dagger=\hat H,
+%		\qquad
+%		\hat K^\dagger=\hat K.
+%		\]
+%		For every \(|v\rangle\),
+%		\[
+%		\langle v|\hat O|v\rangle
+%		=
+%		\langle v|\hat H|v\rangle
+%		+i\langle v|\hat K|v\rangle.
+%		\]
+%		Both expectations on the right are real because \(\hat H,\hat K\) are Hermitian. Positivity requires the left side to be real, so its imaginary part vanishes:
+%		\[
+%		\langle v|\hat K|v\rangle=0
+%		\quad\text{for every }|v\rangle.
+%		\]
+%		Since \(\hat K\) is Hermitian, it has a complete orthonormal eigenbasis. For any normalized eigenvector \(|i\rangle\),
+%		\[
+%		\hat K|i\rangle=k_i|i\rangle
+%		\quad\Longrightarrow\quad
+%		k_i=\langle i|\hat K|i\rangle=0.
+%		\]
+%		All eigenvalues vanish, hence \(\hat K=0\). Therefore
+%		\[
+%		\boxed{\hat O=\hat H=\hat O^\dagger.}
+%		\]
+%		In fact, this proof shows that real expectation values for every vector already imply Hermiticity. Nonnegativity further ensures that the eigenvalues are nonnegative.
+%	\end{proof}
+%	\begin{theorem}
+%		\textbf{\textit{Simultaneous diagonalization theorem}}
+%		Two Hermitian linear operators \(\hat A\) and \(\hat B\) can be diagonalized simultaneously if and only if
+%		\[
+%		\boxed{[\hat A,\hat B]=0.}
+%		\]
+%		In other words, there is a complete orthonormal basis of simultaneous eigenkets:
+%		\[
+%		\hat A|a,b\rangle=a|a,b\rangle,
+%		\qquad
+%		\hat B|a,b\rangle=b|a,b\rangle.
+%		\tag{1.55}
+%		\]
+%		If several independent states have the same pair of eigenvalues, an additional label is needed.
+%		Proof: simultaneous diagonalization implies commutation.
+%		Using conventional basis indices, suppose
+%		\[
+%		\hat A|i\rangle=a_i|i\rangle,
+%		\qquad
+%		\hat B|i\rangle=b_i|i\rangle
+%		\]
+%		for every vector in a complete basis. Then
+%		\[
+%		\hat A\hat B|i\rangle
+%		=a_ib_i|i\rangle
+%		=\hat B\hat A|i\rangle.
+%		\]
+%		Thus
+%		\[
+%		[\hat A,\hat B]|i\rangle=0
+%		\]
+%		for every basis vector. By linearity, the commutator vanishes on every vector:
+%		\[
+%		[\hat A,\hat B]=0.
+%		\]
+%	\end{theorem}
+%	\begin{proof}
+%		Commutation implies simultaneous diagonalization.
+%		Suppose \([\hat A,\hat B]=0\). Since \(\hat A\) is Hermitian, \(V\) decomposes into its mutually orthogonal eigenspaces.
+%		Let \(V_a\) be the eigenspace with eigenvalue \(a\). For any \(|v\rangle\in V_a\),
+%		\[
+%		\hat A|v\rangle=a|v\rangle.
+%		\]
+%		Using commutation,
+%		\[
+%		\begin{aligned}
+%			\hat A(\hat B|v\rangle)
+%			&=\hat B\hat A|v\rangle\\
+%			&=\hat B(a|v\rangle)\\
+%			&=a(\hat B|v\rangle).
+%		\end{aligned}
+%		\]
+%		Therefore \(\hat B|v\rangle\) also belongs to \(V_a\): \(\hat B\) preserves every eigenspace of \(\hat A\).
+%		Restrict \(\hat B\) to one such eigenspace \(V_a\). This restriction is still Hermitian, so it has an orthonormal eigenbasis within \(V_a\). Every vector in that basis is:
+%		- an eigenvector of \(\hat A\), because it belongs to \(V_a\);
+%		- an eigenvector of \(\hat B\), by construction.
+%		Perform this diagonalization separately in every eigenspace of \(\hat A\). Combining the resulting bases gives a complete orthonormal basis of simultaneous eigenvectors for \(V\). \(\square\)
+%		The degenerate case is the important step: commutation does not guarantee that every arbitrarily chosen eigenbasis of \(\hat A\) already diagonalizes \(\hat B\). It guarantees that we can choose suitable vectors within each degenerate eigenspace.
+%		The spectral-projector form at the bottom of the page
+%		A Hermitian operator has an orthonormal eigenbasis in which
+%		\[
+%		\hat M=\sum_i\lambda_i|i\rangle\langle i|.
+%		\tag{1.56}
+%		\]
+%		If \(m\) labels the distinct eigenvalues, group all basis vectors sharing each eigenvalue:
+%		\[
+%		\boxed{
+%			\hat M=\sum_m m\hat P_m,
+%			\qquad
+%			\hat P_m=\sum_j\delta_{\lambda_j,m}|j\rangle\langle j|.
+%		}
+%		\]
+%		The operator \(\hat P_m\) projects onto the entire eigenspace with eigenvalue \(m\). Indeed,
+%		\[
+%		\begin{aligned}
+%			\sum_m m\hat P_m
+%			&=\sum_m\sum_jm\,\delta_{\lambda_j,m}|j\rangle\langle j|\\
+%			&=\sum_j\lambda_j|j\rangle\langle j|\\
+%			&=\hat M.
+%		\end{aligned}
+%		\]
+%		For each fixed \(j\), only the term \(m=\lambda_j\) survives. This form makes degeneracy explicit without requiring a particular basis inside each eigenspace.
+%	\end{proof}
 	
 \end{document}
